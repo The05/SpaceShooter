@@ -17,9 +17,11 @@ public class PlayerMovement : MonoBehaviour
         float moveHorizontal = Input.GetAxis("Horizontal");
         float moveVertical = Input.GetAxis("Vertical");
 
+        // Invert movement direction
+        moveHorizontal = -moveHorizontal;
+
         // Calculate target position
-        Vector3 targetPosition = transform.position +
-            new Vector3(moveHorizontal, moveVertical, 0f) * speed * Time.deltaTime;
+        Vector3 targetPosition = transform.position + new Vector3(moveHorizontal, moveVertical, 0f) * speed * Time.deltaTime;
 
         // Clamp target position within boundaries
         targetPosition.x = Mathf.Clamp(targetPosition.x, minX, maxX);
