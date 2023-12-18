@@ -12,7 +12,7 @@ public class Bullet : MonoBehaviour
 
     void Start()
     {
-        rb.velocity= transform.right * speed;
+        rb.velocity = transform.right * speed;
     }
 
     private void OnTriggerEnter2D(Collider2D hitInfo)
@@ -27,7 +27,6 @@ public class Bullet : MonoBehaviour
 
     void Update()
     {
-        // Check if the bullet's X position is greater than the destroy point
         if (transform.position.x >= destroyPointX)
         {
             Destroy(gameObject);

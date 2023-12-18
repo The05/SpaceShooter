@@ -8,11 +8,10 @@ public class Weapon : MonoBehaviour
     public Transform firePoint;
     public GameObject bulletPrefab;
 
-    public float shootRate = 0.2f; // Adjust the rate of fire as needed
+    public float shootRate = 0.2f;
     private float shootTimer = 0f;
     private bool isShooting = false;
 
-    // Update is called once per frame
     void Update()
     {
         if (Input.GetKeyDown(KeyCode.Space))

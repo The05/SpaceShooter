@@ -6,7 +6,6 @@ public class AsteroidMovement : MonoBehaviour
 
     void Update()
     {
-        // Move the asteroid to the left in world space
-        transform.Translate(Vector3.right * asteroidSpeed * Time.deltaTime, Space.World);
+        transform.Translate(Vector3.left * asteroidSpeed * Time.deltaTime, Space.World);
     }
 }
