@@ -1,29 +1,37 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.PlasticSCM.Editor.WebApi;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class PointsManager : MonoBehaviour
 {
-    private int currentPoints = 0;
-    public Text pointsText; // Reference to a UI Text element to display points
+    public static PointsManager instance;
 
+    public Text scoreText;
+    float score = 0;
+    float rockAmount = 0;
+    float multiplier = 1.0f;
+
+    private void Awake()
+    {
+        instance = this;
+    }
     void Start()
     {
-        UpdatePointsText();
+        scoreText.text = score.ToString() + " Poäng";
     }
 
-    public void AddPoints(int pointsToAdd)
-    {
-        currentPoints += pointsToAdd;
-        UpdatePointsText();
-    }
 
-    void UpdatePointsText()
+    public void AddPoint()
     {
-        if (pointsText != null)
-        {
-            pointsText.text = "Points: " + currentPoints.ToString();
-        }
+        score += 100 * multiplier;
+        scoreText.text = score.ToString() + " Poäng";
+        rockAmount++;
+    }
+    public void UpdateMultiplier()
+    {
+        multiplier = 1.0f + (rockAmount / 100 ); 
     }
 }

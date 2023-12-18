@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class Enemy : MonoBehaviour
@@ -7,17 +5,31 @@ public class Enemy : MonoBehaviour
     public int health = 40;
     private Animator animator;
     public GameObject deathEffect;
-    public int basePoints = 10;
+    public int basePoints = 1;
+    public int damage = 10;
 
-    private PointsManager pointsManager;
+    public float asteroidDamage = 30f;
 
-    void Start()
+    private void Start()
     {
         animator = GetComponent<Animator>();
-        pointsManager = FindObjectOfType<PointsManager>();
     }
 
-    public void TakeDamage(int damage)
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.CompareTag("Player"))
+        {
+            HealthManager healthManager = HealthManager.instance;
+            if (healthManager != null)
+            {
+                healthManager.PlayerTakeDamage(asteroidDamage);
+            }
+
+            Die();
+        }
+    }
+
+    public void TakeDamage()
     {
         health -= damage;
         if (health <= 0)
@@ -26,19 +38,20 @@ public class Enemy : MonoBehaviour
         }
     }
 
-    void Die()
+    private void Die()
     {
         if (animator != null)
         {
             animator.SetTrigger("DieTrigger");
         }
 
-        Instantiate(deathEffect, transform.position, Quaternion.identity);
-        Destroy(gameObject);
-
-        if (pointsManager != null)
+        if (deathEffect != null)
         {
-            pointsManager.AddPoints(basePoints * (int)Mathf.Pow(2, -health)); // Exponential increase in points
+            Instantiate(deathEffect, transform.position, Quaternion.identity);
         }
+
+        Destroy(gameObject);
+        PointsManager.instance.AddPoint();
+        PointsManager.instance.UpdateMultiplier();
     }
 }

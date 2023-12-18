@@ -4,7 +4,6 @@ using UnityEngine;
 public class AsteroidSpawner : MonoBehaviour
 {
     public GameObject asteroidPrefab;
-    public Transform playerTransform;
     public float spawnInterval = 3f;
     public float moveSpeed = 2f; // Vertical movement speed
     public float topY = 0.3f; // Top limit of movement
